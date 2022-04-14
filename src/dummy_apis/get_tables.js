@@ -7,3 +7,5 @@ const get_tables = () => {
     ]
 
 }
+
+export default get_tables
