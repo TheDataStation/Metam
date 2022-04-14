@@ -1,14 +1,17 @@
 import './App.css';
+import { 
+  Routes,
+  Route
+} from 'react-router-dom';
+import Input from '../../pages/Input'
+import Output from '../../pages/Output'
 
 function App() {
   return (
-    <div className="App">
-      
-      <h1>Metam</h1>
-
-      <input type="file" id="myFile" name="filename" />
-
-    </div>
+    <Routes>
+      <Route path="/" element={<Input />} />
+      <Route path="/results" element={<Output />} />
+    </Routes>
   );
 }
 
