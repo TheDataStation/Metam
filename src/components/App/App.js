@@ -4,13 +4,13 @@ import {
   Route
 } from 'react-router-dom';
 import Input from '../../pages/Input'
-import Output from '../../pages/Output'
+import Results from '../../pages/Results'
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Input />} />
-      <Route path="/results" element={<Output />} />
+      <Route path="/results" element={<Results />} />
     </Routes>
   );
 }
