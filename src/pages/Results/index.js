@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import ResultCard from '../../components/ResultCard'
 import get_results from '../../dummy_apis/get_results'
 
-const Output = () => {
+const Results = () => {
 
     const location = useLocation()
     const data = location.state
@@ -39,4 +39,4 @@ const Output = () => {
     
 }
 
-export default Output
+export default Results;
