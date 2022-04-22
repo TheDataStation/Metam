@@ -1,22 +1,52 @@
-const TableCard = ({ name, source }) => {
+import TablePreview from "../TablePreview";
+import "./index.css"
 
-    return <div style={{
-        width: "100px", 
-        height: "100px", 
-        border: "1px solid gray", 
-        margin: "5px", 
-        display: "flex", 
-        justifyContent: "center", 
-        alignItems: "center",
-        fontSize: "20px",
-        borderRadius: "5px"
-        }}>
-        
-        { name }
+const TableCard = ({ id, name, source, relationship, score, preview }) => {
+    return <div className="card_wrapper">
 
-        {/* <p>{ source }</p> */}
+        <Header
+            name={name}
+            source={source}
+            relationship={relationship}
+            score={score}
+        />
+
+        {/* <TablePreview preview={preview} /> */}
+
     </div>
 
 }
+
+const Header = ({ name, source, relationship, score}) => <div className="card_header">
+
+    <div className="card_header_row">
+        <strong>
+        { name }
+        </strong>
+        <span className="card_header_subtitle">
+            Uchicago CS
+        </span>
+    </div>
+
+    <div className="card_header_row">
+        <span className="card_header_text">
+            { 
+                score ? 
+                    <strong>Score: { score }</strong>
+                    : null
+            }
+
+            {
+                relationship ? 
+                    relationship.map(r => r) : null
+            }
+
+        </span>
+    </div>
+
+    
+
+
+</div>
 
 export default TableCard;

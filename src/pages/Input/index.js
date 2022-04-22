@@ -8,13 +8,15 @@ const Input = () => {
 
     let navigate = useNavigate();
 
-    const [file, setFile] = useState(null);
+    const [file, setFile] = useState(null)
     const [task, setTask] = useState(1)
+    const [classification, setClassification] = useState(1)
+    const [utilityMetric, setUtilityMetric] = useState(1)
     const [attribute, setAttribute] = useState(1)
     
     const [dataset, setDataset] = useState(null)
 
-    const [matches, setMatches] = useState([]);
+    const [matches, setMatches] = useState([])
 
     useEffect(() => {
         if (file) {
@@ -56,6 +58,10 @@ const Input = () => {
                         handleSubmit={handleSubmit}
                         matches={matches}
                         dataset={dataset}
+                        classification={classification}
+                        setClassification={setClassification}
+                        utilityMetric={utilityMetric}
+                        setUtilityMetric={setUtilityMetric}
                         /> : <></>
                 }
             </span>
@@ -65,16 +71,31 @@ const Input = () => {
     )
 }
 
-const Form2 = ({ task, setTask, attribute, setAttribute, file, handleSubmit, matches, dataset }) => {
+const Form2 = ({ task, setTask, attribute, setAttribute, file, handleSubmit, matches, dataset, classification, setClassification, utilityMetric, setUtilityMetric }) => {
 
     const handleTaskChange = e => {
         setTask(e.target.value)
-        console.log(e.target.value)
+        if (e.target.value != 1) {
+            setClassification(null)
+        }
+        else {
+            setClassification(1);
+        }
     }
 
     const handleAttributeChange = e => {
         setAttribute(e.target.value)
     }
+
+    const handleClassificationChange = e => {
+        setClassification(e.target.value)
+    }
+
+    const handleUtilityMetricChange = e => {
+        setUtilityMetric(e.target.value)
+    }
+
+
 
     let attribute_count = 0;
 
@@ -84,7 +105,7 @@ const Form2 = ({ task, setTask, attribute, setAttribute, file, handleSubmit, mat
         Object.keys(file).map(a => <p>a</p>)
     }
 
-    <label>Table Candidates found:</label>
+    <label>Choose the Table Candidates to be considered by Metam:</label>
     <div style={{display: "flex", flexDirection: "row"}}>
         {
             matches.map(m => <TableCard name={m.name} />)
@@ -100,11 +121,34 @@ const Form2 = ({ task, setTask, attribute, setAttribute, file, handleSubmit, mat
         <option value="5" disabled={true}>Your own function</option>
     </select>
 
+    {
+        (task == 1) ? (
+            <>
+                <label>Classification kind:</label>
+                <select class="u-full-width" id="utility" value={classification} onChange={handleClassificationChange}>
+                    <option value="1">Binary Classification</option>
+                    <option value="2">Multi-label Classification</option>
+                    <option value="3">Multi-class Classification</option>
+                    <option value="4">Imbalanced Classification</option>
+                </select>
+            </> 
+        ) : null
+    }
+
+
     <label>Choose the attribute to be measured:</label>
     <select class="u-full-width" id="attribute" value={attribute} onChange={handleAttributeChange}>
         {
             dataset ? dataset.meta.fields.map(f => <option value={f}>{f}</option> ) : null
         }
+    </select>
+
+    <label>Choose the task utility metric:</label>
+    <select class="u-full-width" id="utility" value={utilityMetric} onChange={handleUtilityMetricChange}>
+        <option value="1">Mean Squared Error</option>
+        <option value="2">Mean Absolute Error</option>
+        <option value="4">F-score</option>
+        <option value="5" disabled={true}>Your own function</option>
     </select>
 
     <button type="submit" onClick={handleSubmit}>Run Metam</button>

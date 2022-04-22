@@ -6,7 +6,6 @@ from get_tables import get_tables
 
 app = Flask(__name__)
 api = Api(app)
-
 class Get_Tables(Resource):
     def get(self):
         return jsonify(get_tables())

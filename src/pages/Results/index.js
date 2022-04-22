@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import ResultCard from '../../components/ResultCard'
+import TableCard from '../../components/TableCard'
 import get_results from '../../dummy_apis/get_results'
 
 const Results = () => {
@@ -31,7 +32,7 @@ const Results = () => {
                     flexWrap: "wrap"
                 }}>
 
-                    { results.map(r => <ResultCard name={r.name} score={r.score} />) }
+                    { results.map(r => <TableCard name={r.name} score={r.score} />) }
                 </div>
             </div>
         )
