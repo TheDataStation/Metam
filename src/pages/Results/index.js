@@ -31,7 +31,7 @@ const Results = () => {
                     flexWrap: "wrap"
                 }}>
 
-                    { results.map(r => <TableCard name={r.name} score={r.score} />) }
+                    { results.map(r => <TableCard name={r.name} score={r.score} preview={r.preview} />) }
                 </div>
             </div>
         )

@@ -24,7 +24,7 @@ const Header = ({ name, source, relationship, score}) => <div className="card_he
         { name }
         </strong>
         <span className="card_header_subtitle">
-            Uchicago CS
+            { source }
         </span>
     </div>
 
