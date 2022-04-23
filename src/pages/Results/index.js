@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import TableCard from '../../components/TableCard'
 import get_results from '../../dummy_apis/get_results'
 

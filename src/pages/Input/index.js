@@ -26,7 +26,7 @@ const Input = () => {
                 complete: r => setDataset(r)
             })
         }
-    }, file)
+    }, [file])
 
 
     const handleFile = e => {   
@@ -75,7 +75,7 @@ const Form2 = ({ task, setTask, attribute, setAttribute, file, handleSubmit, mat
 
     const handleTaskChange = e => {
         setTask(e.target.value)
-        if (e.target.value != 1) {
+        if (e.target.value !== 1) {
             setClassification(null)
         }
         else {
@@ -117,7 +117,7 @@ const Form2 = ({ task, setTask, attribute, setAttribute, file, handleSubmit, mat
     </select>
 
     {
-        (task == 1) ? (
+        (task === 1) ? (
             <>
                 <label>Classification kind:</label>
                 <select class="u-full-width" id="utility" value={classification} onChange={handleClassificationChange}>
