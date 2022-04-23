@@ -11,7 +11,7 @@ const TableCard = ({ id, name, source, relationship, score, preview }) => {
             score={score}
         />
 
-        {/* <TablePreview preview={preview} /> */}
+        <TablePreview preview={preview} />
 
     </div>
 

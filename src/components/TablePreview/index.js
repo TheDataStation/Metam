@@ -1,12 +1,18 @@
+import "./index.css"
+
 const TablePreview = ({ preview }) => {
     // if (preview) {
-        return <table>
+        return <div className="tablepreview_container">
+
+        <table className="u-max-full-width tablepreview_text">
         <thead>
           <tr>
             <th>Name</th>
             <th>Age</th>
             <th>Sex</th>
             <th>Location</th>
+            <th>University</th>
+            <th>University</th>
           </tr>
         </thead>
         <tbody>
@@ -15,15 +21,20 @@ const TablePreview = ({ preview }) => {
             <td>26</td>
             <td>Male</td>
             <td>San Francisco</td>
+            <td>University of Chicago</td>
+            <td>University of Chicago</td>
           </tr>
           <tr>
             <td>Dwayne Johnson</td>
             <td>42</td>
             <td>Male</td>
             <td>Hayward</td>
+            <td>University of Chicago</td>
+            <td>University of Chicago</td>
           </tr>
         </tbody>
       </table>
+      </div>
     }
 // }
 

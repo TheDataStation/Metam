@@ -1,0 +1,8 @@
+.tablepreview_text {
+    font-size: 10px;
+}
+
+.tablepreview_container {
+    /* min-width: 100%; */
+    overflow: scroll;
+}
