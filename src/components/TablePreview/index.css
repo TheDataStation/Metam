@@ -3,6 +3,5 @@
 }
 
 .tablepreview_container {
-    /* min-width: 100%; */
     overflow: scroll;
 }

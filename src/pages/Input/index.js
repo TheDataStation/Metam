@@ -95,22 +95,17 @@ const Form2 = ({ task, setTask, attribute, setAttribute, file, handleSubmit, mat
         setUtilityMetric(e.target.value)
     }
 
-
-
-    let attribute_count = 0;
-
     return <>
 
-    {
-        Object.keys(file).map(a => <p>a</p>)
-    }
-
-    <label>Choose the Table Candidates to be considered by Metam:</label>
-    <div style={{display: "flex", flexDirection: "row"}}>
-        {
-            matches.map(m => <TableCard name={m.name} />)
-        }
-    </div>
+        <label>Choose the Table Candidates to be considered by Metam:</label>
+        <div style={{display: "flex", flexDirection: "row"}}>
+            {
+                matches.map(m => <TableCard 
+                    name={m.name}
+                    preview={m.preview} 
+                />)
+            }
+        </div>
 
     <label>Choose the task to be performed on the data:</label>
     <select class="u-full-width" id="utility" value={task} onChange={handleTaskChange}>
