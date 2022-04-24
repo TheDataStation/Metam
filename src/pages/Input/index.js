@@ -15,7 +15,6 @@ const Input = () => {
     const [attribute, setAttribute] = useState(1)
     
     const [dataset, setDataset] = useState(null)
-
     const [matches, setMatches] = useState([])
 
     useEffect(() => {
@@ -51,7 +50,7 @@ const Input = () => {
 
             <span>
                 {
-                    file ? <Form2 
+                    file && <Form2 
                         task={task} setTask={setTask} 
                         attribute={attribute} setAttribute={setAttribute}
                         file={file}
@@ -62,16 +61,22 @@ const Input = () => {
                         setClassification={setClassification}
                         utilityMetric={utilityMetric}
                         setUtilityMetric={setUtilityMetric}
-                        /> : <></>
+                    />
                 }
             </span>
-
 
         </div>
     )
 }
 
-const Form2 = ({ task, setTask, attribute, setAttribute, file, handleSubmit, matches, dataset, classification, setClassification, utilityMetric, setUtilityMetric }) => {
+const Form2 = ({ task, setTask, 
+    attribute, setAttribute, 
+    file, handleSubmit, 
+    matches, 
+    dataset, 
+    classification, setClassification, 
+    utilityMetric, setUtilityMetric 
+}) => {
 
     const handleTaskChange = e => {
         setTask(e.target.value)
@@ -117,7 +122,7 @@ const Form2 = ({ task, setTask, attribute, setAttribute, file, handleSubmit, mat
     </select>
 
     {
-        (task === 1) ? (
+        (task === 1) && (
             <>
                 <label>Classification kind:</label>
                 <select class="u-full-width" id="utility" value={classification} onChange={handleClassificationChange}>
@@ -127,14 +132,16 @@ const Form2 = ({ task, setTask, attribute, setAttribute, file, handleSubmit, mat
                     <option value="4">Imbalanced Classification</option>
                 </select>
             </> 
-        ) : null
+        )
     }
 
 
     <label>Choose the attribute to be measured:</label>
     <select class="u-full-width" id="attribute" value={attribute} onChange={handleAttributeChange}>
         {
-            dataset ? dataset.meta.fields.map(f => <option value={f}>{f}</option> ) : null
+            dataset && (
+                dataset.meta.fields.map(f => <option value={f}>{f}</option>)
+            )   
         }
     </select>
 

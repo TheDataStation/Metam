@@ -1,5 +1,5 @@
 import TablePreview from "../TablePreview";
-import "./index.css"
+import "./index.css";
 
 const TableCard = ({ id, name, source, relationship, score, preview }) => {
     return <div className="card_wrapper">
@@ -17,36 +17,35 @@ const TableCard = ({ id, name, source, relationship, score, preview }) => {
 
 }
 
-const Header = ({ name, source, relationship, score}) => <div className="card_header">
+const Header = ({ name, source, relationship, score}) => {
 
-    <div className="card_header_row">
-        <strong>
-        { name }
-        </strong>
-        <span className="card_header_subtitle">
-            { source }
-        </span>
+    return <div className="card_header">
+
+        <div className="card_header_row">
+            
+            <span className="card_title">{ name }</span>
+            
+            <span className="card_header_subtitle">
+                { source }
+            </span>
+
+        </div>
+
+        <div className="card_header_row">
+            <span className="card_header_text">
+
+                { 
+                    score && <strong>Score: { score }</strong>
+                }
+
+                {
+                    relationship && relationship.map(r => r)
+                }
+
+            </span>
+        </div>
+
     </div>
-
-    <div className="card_header_row">
-        <span className="card_header_text">
-            { 
-                score ? 
-                    <strong>Score: { score }</strong>
-                    : null
-            }
-
-            {
-                relationship ? 
-                    relationship.map(r => r) : null
-            }
-
-        </span>
-    </div>
-
-    
-
-
-</div>
+}
 
 export default TableCard;

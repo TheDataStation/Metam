@@ -54,3 +54,7 @@
 .card_header_text {
     font-size: 12px;
 }
+
+.card_title {
+    font-weight: 800;
+}
