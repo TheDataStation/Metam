@@ -2,6 +2,7 @@ import TablePreview from "../TablePreview";
 import "./index.css";
 
 const TableCard = ({ id, name, source, relationship, score, preview }) => {
+
     return <div className="card_wrapper">
 
         <Header

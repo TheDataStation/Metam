@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import TableCard from '../../components/TableCard'
-import get_results from '../../dummy_apis/get_results'
 
 const Results = () => {
 
@@ -15,8 +14,10 @@ const Results = () => {
 
     useEffect(() => {
         if (data) {
-            let res = get_results();
-            setResults(res)
+            const url = '/api/results'
+            fetch(url)
+            .then(res => res.json())
+            .then(data => setResults(data))
         }
     }, [data])
 

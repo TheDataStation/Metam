@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from 'react-router-dom'
-import get_tables from "../../dummy_apis/get_tables";
 import TableCard from '../../components/TableCard'
 import Papa from 'papaparse'
 
@@ -38,7 +37,10 @@ const Input = () => {
     }
 
     const fetchMatchData = () => {
-        setMatches(get_tables());
+        const url = '/api/tables'
+        fetch(url)
+        .then(response => response.json())
+        .then(data => setMatches(data))
     }
 
     return (
