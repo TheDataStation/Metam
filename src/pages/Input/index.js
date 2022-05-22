@@ -1,22 +1,23 @@
 import { useEffect, useState } from "react"
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import TableCard from '../../components/TableCard'
 import Papa from 'papaparse'
 
 const Input = () => {
-
+    let location = useLocation();
     let navigate = useNavigate();
 
-    const [file, setFile] = useState(null)
-    const [task, setTask] = useState(1)
-    const [classification, setClassification] = useState(1)
-    const [utilityMetric, setUtilityMetric] = useState(1)
-    const [attribute, setAttribute] = useState(1)
+    const [file, setFile] = useState(null || location?.state?.file)
+    const [task, setTask] = useState(1 || location?.state?.task)
+    const [classification, setClassification] = useState(1 || location?.state?.classification)
+    const [utilityMetric, setUtilityMetric] = useState(1 || location?.state?.utilityMetric)
+    const [attribute, setAttribute] = useState(1 || location?.state?.attribute)
     
-    const [dataset, setDataset] = useState(null)
-    const [matches, setMatches] = useState([])
+    const [dataset, setDataset] = useState(null || location?.state?.dataset)
+    const [matches, setMatches] = useState([] || location?.state?.matches)
 
     useEffect(() => {
+        console.log(location)
         if (file) {
             Papa.parse(file, {
                 header: true,
@@ -26,13 +27,24 @@ const Input = () => {
         }
     }, [file])
 
-
     const handleFile = e => {   
         setFile(e.target.files[0])
         fetchMatchData()
     }
 
     const handleSubmit = () => {
+        const newState = {
+            file,
+            task,
+            classification,
+            utilityMetric,
+            attribute,
+            dataset,
+            matches
+        }
+        window.history.replaceState(newState, '')
+
+        console.log(location)
         navigate("/results", { state: { file, task, attribute }});
     }
 
@@ -136,7 +148,6 @@ const Form2 = ({ task, setTask,
             </> 
         )
     }
-
 
     <label>Choose the attribute to be measured:</label>
     <select class="u-full-width" id="attribute" value={attribute} onChange={handleAttributeChange}>
