@@ -5,14 +5,11 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Input from './pages/Input'
 import Results from './pages/Results'
+import FormDataCtxt from './utils/formData';
+import App from './App';
 
 ReactDOM.render(
-  <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<Input />} />
-      <Route path="/results" element={<Results />} />
-    </Routes>
-  </BrowserRouter>,
+  <App />,
   document.getElementById('root')
 );
 

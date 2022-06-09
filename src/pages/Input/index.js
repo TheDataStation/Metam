@@ -1,80 +1,71 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { useNavigate, useLocation } from 'react-router-dom'
 import TableCard from '../../components/TableCard'
 import Papa from 'papaparse'
+import FormDataCtxt from "../../utils/formData"
 
 const Input = () => {
+
     let location = useLocation();
     let navigate = useNavigate();
 
-    const [file, setFile] = useState(null || location?.state?.file)
-    const [task, setTask] = useState(1 || location?.state?.task)
-    const [classification, setClassification] = useState(1 || location?.state?.classification)
-    const [utilityMetric, setUtilityMetric] = useState(1 || location?.state?.utilityMetric)
-    const [attribute, setAttribute] = useState(1 || location?.state?.attribute)
-    
-    const [dataset, setDataset] = useState(null || location?.state?.dataset)
-    const [matches, setMatches] = useState([] || location?.state?.matches)
+    const [formData, setFormData] = useContext(FormDataCtxt);
+
+    const handleFormChange = (field, value) => {
+        setFormData(current => {
+            return {
+                ...current,
+                [field]: value
+            }
+        })
+    } 
 
     useEffect(() => {
-        console.log(location)
-        if (file) {
-            Papa.parse(file, {
+        console.log(formData)
+        if (formData.file) {
+            Papa.parse(formData.file, {
                 header: true,
                 skipEmptyLines: true,
-                complete: r => setDataset(r)
+                complete: r => handleFormChange('dataset', r)
             })
         }
-    }, [file])
+    }, [formData.file])
 
     const handleFile = e => {   
-        setFile(e.target.files[0])
+        handleFormChange('file', e.target.files[0])
         fetchMatchData()
     }
 
     const handleSubmit = () => {
-        const newState = {
-            file,
-            task,
-            classification,
-            utilityMetric,
-            attribute,
-            dataset,
-            matches
-        }
-        window.history.replaceState(newState, '')
-
-        console.log(location)
-        navigate("/results", { state: { file, task, attribute }});
+        navigate("/results");
     }
 
     const fetchMatchData = () => {
         const url = '/api/tables'
         fetch(url)
         .then(response => response.json())
-        .then(data => setMatches(data))
+        .then(data => handleFormChange('matches', data))
     }
 
     return (
         <div className="container">
             <h1>Metam</h1>
+
             
             <label>Upload your csv dataset:</label>
-            <input type="file" onChange={handleFile} accept=".csv" ></input>
+            {
+                formData.file ? 
+                    <p>Uploaded: {formData.file.name}</p> 
+                    : 
+                    <input type="file" onChange={handleFile} accept=".csv" ></input>
+            }
 
             <span>
                 {
-                    file && <Form2 
-                        task={task} setTask={setTask} 
-                        attribute={attribute} setAttribute={setAttribute}
-                        file={file}
+                    formData.file && <Form2 
+                        formData={formData}
+                        handleFormChange={handleFormChange}
                         handleSubmit={handleSubmit}
-                        matches={matches}
-                        dataset={dataset}
-                        classification={classification}
-                        setClassification={setClassification}
-                        utilityMetric={utilityMetric}
-                        setUtilityMetric={setUtilityMetric}
                     />
                 }
             </span>
@@ -83,35 +74,37 @@ const Input = () => {
     )
 }
 
-const Form2 = ({ task, setTask, 
-    attribute, setAttribute, 
-    file, handleSubmit, 
-    matches, 
-    dataset, 
-    classification, setClassification, 
-    utilityMetric, setUtilityMetric 
-}) => {
+const Form2 = ({ formData, 
+    handleFormChange, 
+    handleSubmit }) => {
+
+    const { task, 
+        attribute, 
+        classification, 
+        utilityMetric, 
+        dataset, 
+        matches } = formData
 
     const handleTaskChange = e => {
-        setTask(e.target.value)
+        handleFormChange('task', e.target.value);
         if (e.target.value !== 1) {
-            setClassification(null)
+            handleFormChange('classification', null);
         }
         else {
-            setClassification(1);
+            handleFormChange('classification', 1);
         }
-    }
-
-    const handleAttributeChange = e => {
-        setAttribute(e.target.value)
     }
 
     const handleClassificationChange = e => {
-        setClassification(e.target.value)
+        handleFormChange('classification', e.target.value);
+    }
+
+    const handleAttributeChange = e => {
+        handleFormChange('attribute', e.target.value);
     }
 
     const handleUtilityMetricChange = e => {
-        setUtilityMetric(e.target.value)
+        handleFormChange('utilityMetric', e.target.value);
     }
 
     return <>

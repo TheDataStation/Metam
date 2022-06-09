@@ -1,11 +1,12 @@
-import { useState, useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useState, useEffect, useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
+
 import TableCard from '../../components/TableCard'
+import FormDataCtxt from '../../utils/formData'
 
 const Results = () => {
-
-    const location = useLocation()
-    const data = location.state
+    let navigate = useNavigate;
+    const [formData, setFormData] = useContext(FormDataCtxt)
     const [results, setResults] = useState([])
 
     const validData = (data) => {
@@ -13,16 +14,15 @@ const Results = () => {
     }
 
     useEffect(() => {
-        if (data) {
+        if (formData) {
             const url = '/api/results'
             fetch(url)
             .then(res => res.json())
             .then(data => setResults(data))
         }
-    }, [data])
+    }, [formData])
 
-
-    if (validData(data)) {
+    if (validData(formData)) {
         return (
             <div className='container'>
                 <h2>Metam Results</h2>
@@ -36,6 +36,8 @@ const Results = () => {
                 </div>
             </div>
         )
+    } else {
+        navigate("/")
     }
     
 }
