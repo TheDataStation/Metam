@@ -5,7 +5,7 @@ import TableCard from '../../components/TableCard'
 import FormDataCtxt from '../../utils/formData'
 
 const Results = () => {
-    let navigate = useNavigate;
+    let navigate = useNavigate();
     const [formData, setFormData] = useContext(FormDataCtxt)
     const [results, setResults] = useState([])
 
