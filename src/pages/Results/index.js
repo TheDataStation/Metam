@@ -16,7 +16,16 @@ const Results = () => {
     useEffect(() => {
         if (formData) {
             const url = '/api/results'
-            fetch(url)
+            
+            var data = new FormData();
+            for (const itemName in formData) {
+                console.log(itemName)
+                data.append(itemName, formData[itemName])
+            }
+            fetch(url, {
+                method: 'post',
+                body: data
+            })
             .then(res => res.json())
             .then(data => setResults(data))
         }

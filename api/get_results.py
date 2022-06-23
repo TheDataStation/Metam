@@ -1,14 +1,34 @@
 from random import uniform
 
 # ARGUMENTS
-# dataset - user's input dataset
-# table_candidates - array of Tables selected by user to run Metam on
-# task - task to be performed by users
-# attribute - the attribute in the user's dataset to be measured
-# metric - utility metric to be scored on
 
 # def get_results(dataset, tables, task, attribute, metric):
-def get_results():
+def get_results( dataset, task, classification, attribute, metric ):
+
+    # dataset : pandas dataframe from the csv the user inputted
+
+    # task - task to be performed by users 
+    # values:
+    # 1 - classificaiton
+    # 2 - regression
+    # 3 - What-if analysis
+    # 4 - How-to analysis
+
+
+    # classification - type of classification, if task is classification
+    # values:
+    # 1 - binary classification
+    # 2 - multi-label classification
+    # 3 - multi-class classification
+    # 4 - imbalanced classification
+
+    # attribute - the attribute in the user's dataset to be measured
+
+    # metric - utility metric to be scored on# 
+    # values:
+    # 1 - mean squared error
+    # 2 - mean absolute error
+    # 3 - F-score
 
     res = [
         {
