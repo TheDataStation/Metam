@@ -2,7 +2,7 @@
 # dataset - user's input dataset
 
 # def get_tables(dataset):
-def get_tables():
+def get_tables(filename):
     return [
         {
             "id": 1,

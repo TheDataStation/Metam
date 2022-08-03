@@ -21,7 +21,7 @@ const Input = () => {
     } 
 
     useEffect(() => {
-        console.log(formData)
+        //console.log(formData)
         if (formData.file) {
             Papa.parse(formData.file, {
                 header: true,
@@ -31,18 +31,22 @@ const Input = () => {
         }
     }, [formData.file])
 
-    const handleFile = e => {   
+    const handleFile = e => {  
         handleFormChange('file', e.target.files[0])
-        fetchMatchData()
+        fetchMatchData(e.target.files[0])
     }
 
     const handleSubmit = () => {
         navigate("/results");
     }
 
-    const fetchMatchData = () => {
+    const fetchMatchData = (fData) => {
+        console.log(JSON.stringify({'file':fData.name}))
         const url = '/api/tables'
-        fetch(url)
+        fetch(url, {
+                method: 'post',
+                body : JSON.stringify({'file':fData.name})
+            })
         .then(response => response.json())
         .then(data => handleFormChange('matches', data))
     }
