@@ -1,8 +1,11 @@
 # ARGUMENTS
 # dataset - user's input dataset
+import pandas as pd
 
 # def get_tables(dataset):
-def get_tables(filename):
+def get_tables(filename,fileData):
+    print (filename)
+    print (fileData)
     return [
         {
             "id": 1,

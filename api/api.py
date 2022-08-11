@@ -11,10 +11,12 @@ api = Api(app)
 
 class Get_Tables(Resource):
     def post(self):
-        filename=json.loads(request.data)['file']
+        json_obj=json.loads(request.data)
+        filename=json_obj['file']
+        fileData=json_obj['filedata']
         #print (filename)
 
-        return jsonify(get_tables(filename))
+        return jsonify(get_tables(filename,fileData))
 
 class Get_Results(Resource):
     def post(self):

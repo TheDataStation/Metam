@@ -21,35 +21,43 @@ const Input = () => {
     } 
 
     useEffect(() => {
-        //console.log(formData)
+        console.log(formData)
+        console.log("file details")
         if (formData.file) {
             Papa.parse(formData.file, {
                 header: true,
                 skipEmptyLines: true,
-                complete: r => handleFormChange('dataset', r)
+                complete: r => fetchMatchData(r)//handleFormChange('dataset', r)
             })
+            //fetchMatchData(formData.file)
+            console.log(formData)
+
         }
     }, [formData.file])
-
+    const fetchMatchData = (fileData) => {
+        handleFormChange('dataset', fileData)
+        console.log(formData.file.name)
+        console.log(fileData)
+        //console.log(JSON.stringify({'file':fData}))
+        const url = '/api/tables'
+        fetch(url, {
+                method: 'post',
+                body : JSON.stringify({'file':formData.file.name,'filedata':fileData})
+            })
+        .then(response => response.json())
+        .then(data => handleFormChange('matches', data))
+    }
     const handleFile = e => {  
         handleFormChange('file', e.target.files[0])
-        fetchMatchData(e.target.files[0])
+        
+        console.log(formData.dataset)
     }
 
     const handleSubmit = () => {
         navigate("/results");
     }
 
-    const fetchMatchData = (fData) => {
-        console.log(JSON.stringify({'file':fData.name}))
-        const url = '/api/tables'
-        fetch(url, {
-                method: 'post',
-                body : JSON.stringify({'file':fData.name})
-            })
-        .then(response => response.json())
-        .then(data => handleFormChange('matches', data))
-    }
+    
 
     return (
         <div className="container">
@@ -61,7 +69,7 @@ const Input = () => {
                 formData.file ? 
                     <p>Uploaded: {formData.file.name}</p> 
                     : 
-                    <input type="file" onChange={handleFile} accept=".csv" ></input>
+                    <input type="file" onChange={handleFile}></input>
             }
 
             <span>
@@ -88,6 +96,8 @@ const Form2 = ({ formData,
         utilityMetric, 
         dataset, 
         matches } = formData
+
+    
 
     const handleTaskChange = e => {
         handleFormChange('task', e.target.value);
@@ -122,9 +132,9 @@ const Form2 = ({ formData,
                 />)
             }
         </div>
-
+    
     <label>Choose the task to be performed on the data:</label>
-    <select class="u-full-width" id="utility" value={task} onChange={handleTaskChange}>
+    <select class="u-full-width" id="utility" key="{task}task" value={task} onChange={handleTaskChange}>
         <option value="1">Classification</option>
         <option value="2">Regression</option>
         <option value="3">What-if analysis</option>
@@ -136,7 +146,7 @@ const Form2 = ({ formData,
         (task === 1) && (
             <>
                 <label>Classification kind:</label>
-                <select class="u-full-width" id="utility" value={classification} onChange={handleClassificationChange}>
+                <select class="u-full-width" id="utility" value="{classification}class" onChange={handleClassificationChange}>
                     <option value="1">Binary Classification</option>
                     <option value="2">Multi-label Classification</option>
                     <option value="3">Multi-class Classification</option>
@@ -147,7 +157,7 @@ const Form2 = ({ formData,
     }
 
     <label>Choose the attribute to be measured:</label>
-    <select class="u-full-width" id="attribute" value={attribute} onChange={handleAttributeChange}>
+    <select class="u-full-width" id="attribute" key="{attribute}attr" value={attribute} onChange={handleAttributeChange}>
         {
             dataset && (
                 dataset.meta.fields.map(f => <option value={f}>{f}</option>)
@@ -156,7 +166,7 @@ const Form2 = ({ formData,
     </select>
 
     <label>Choose the task utility metric:</label>
-    <select class="u-full-width" id="utility" value={utilityMetric} onChange={handleUtilityMetricChange}>
+    <select class="u-full-width" id="utility" key="{utilityMetric}util" value={utilityMetric} onChange={handleUtilityMetricChange}>
         <option value="1">Mean Squared Error</option>
         <option value="2">Mean Absolute Error</option>
         <option value="4">F-score</option>
