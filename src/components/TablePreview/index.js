@@ -3,7 +3,7 @@ import "./index.css"
 const TablePreview = ({ preview }) => {
 
     if (preview) {
-        return <div className="tablepreview_container">
+        return <div className="container_preview">
 
         <table className="u-max-full-width tablepreview_text">
 

@@ -1,7 +1,10 @@
 .tablepreview_text {
     font-size: 10px;
+    overflow-x: auto;
+    white-space: nowrap;
 }
 
-.tablepreview_container {
-    overflow: scroll;
+.container {
+	overflow-x: auto;
+	white-space: nowrap;
 }
