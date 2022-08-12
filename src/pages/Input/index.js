@@ -124,10 +124,11 @@ const Form2 = ({ formData,
     return <>
 
         <label>Choose the Table Candidates to be considered by Metam:</label>
-        <div style={{display: "flex", flexDirection: "row"}}>
+        <div className="container">
             {
                 matches.map(m => <TableCard 
                     name={m.name}
+                    id={m.id}
                     preview={m.preview} 
                 />)
             }
@@ -172,7 +173,7 @@ const Form2 = ({ formData,
         <option value="4">F-score</option>
         <option value="5" disabled={true}>Your own function</option>
     </select>
-
+        <br></br>
     <button type="submit" onClick={handleSubmit}>Run Metam</button>
 
     </>
