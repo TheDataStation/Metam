@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 
 import TableCard from '../../components/TableCard'
 import FormDataCtxt from '../../utils/formData'
+import {Apptest} from "../../pages/Appjs/Apptest";
 
 const Results = () => {
     let navigate = useNavigate();
@@ -12,7 +13,9 @@ const Results = () => {
     const validData = (data) => {
         return data.attribute && data.task && data.file
     }
-
+    const Test = (color1,color2,color3,color4)=>{
+        return Apptest(color1,color2,color3,color4);
+    }
     useEffect(() => {
         if (formData) {
             const url = '/api/results'
@@ -42,6 +45,7 @@ const Results = () => {
                 }}>
 
                     { results.map(r => <TableCard name={r.name} score={r.score} preview={r.preview} />) }
+                    {Test('lightgreen','lightgreen','lightgreen','lightyellow')}
                 </div>
             </div>
         )

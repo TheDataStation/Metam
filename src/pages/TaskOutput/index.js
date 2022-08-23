@@ -10,13 +10,16 @@ import * as React from 'react';
 
 import {Apptest} from "../../pages/Appjs/Apptest";
 
-const Input = () => {
+const TaskOutput = () => {
 
-    let location = useLocation();
     let navigate = useNavigate();
+    const [formData, setFormData] = useContext(FormDataCtxt)
+    const [results, setResults] = useState([])
 
-    const [formData, setFormData] = useContext(FormDataCtxt);
-
+    const validData = (data) => {
+        return data.attribute && data.task && data.file
+    }
+    
     const handleFormChange = (field, value) => {
         setFormData(current => {
             return {
@@ -64,7 +67,15 @@ const Input = () => {
         
         console.log(formData.dataset)
     }
-    
+    const handleFolder = e => {  
+        console.log(e.target.files,e.target.files[0].webkitRelativePath)
+        handleFormChange('folder', e.target.files[0].webkitRelativePath)
+
+        //iterate over the list and identify filenames
+        //calculate folder name too
+        handleFormChange('filelst', e.target.files)
+        console.log(e.target.files[0].webkitRelativePath,formData.folder)
+    }
     const handleTaskChange = e => {
         handleFormChange('task', e.target.value);
         if (e.target.value !== 1) {
@@ -99,109 +110,32 @@ const Input = () => {
     const Test = (color1,color2,color3,color4)=>{
         return Apptest(color1,color2,color3,color4);
     }
+    
     return (
         <div className="container">
             <h1>Metam</h1>
-            <div style={{width: "100%"}}>
-            {
-            formData.file? 
-             <div style={{float:"left", width: "50%", backgroundColor:"#FFCCCB", margin: "0px 25px 0px 0px"}}>
-                {
-                    <div>Uploaded: {formData.file.name}</div> 
-                }
-                <span>
-                    {
-                        formData.file && <Form2 
-                            formData={formData}
-                            handleFormChange={handleFormChange}
-                            handleSubmit={handleSubmit}
-                        />
-                    }
-                </span>
-            </div>
-             : 
-                <div style={{float:"left", width: "50%"}}>
-                {
-                    
-                     <div style={{ width: "200%", textAlign:"center"}}>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                     <label><h4>Upload your csv dataset:</h4></label>
-                    <input type="file" onChange={handleFile}></input>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    </div>
-                 }
-                </div>
-            }
-            <div style={{ float:"right"}}>
-                {
-                formData.file ? <div>
-                 <label>Choose the task to be performed on the data:</label>
-                <select class="u-full-width" id="utility" style={{width:"45%"}} key="{task}task" value={task} onChange={handleTaskChange}>
-                    <option value="Classification">Classification</option>
-                    <option value="Regression">Regression</option>
-                    <option value="What-if">What-if analysis</option>
-                    <option value="How-to">How-to analysis</option>
-                    <option value="5" disabled={true}>Your own function</option>
-                </select>
-
-                {
-                //   (task === 1) && (
-                //        <>
-                 //           <label>Classification kind:</label>
-                 //           <select class="u-full-width"  style={{width:"45%"}} id="utility" value="{classification}class" onChange={handleClassificationChange}>
-                 //               <option value="1">Binary Classification</option>
-                 //               <option value="2">Multi-label Classification</option>
-                 //               <option value="3">Multi-class Classification</option>
-                 //               <option value="4">Imbalanced Classification</option>
-                 //           </select>
-                 //       </> 
-                //  )
-                }
-
-                <label>Choose the attribute to be measured:</label>
-                <select class="u-full-width" id="attribute" style={{width:"45%"}} key="{attribute}attr" value={attribute} onChange={handleAttributeChange}>
-                    {
-                        dataset && (
-                            dataset.meta.fields.map(f => <option value={f}>{f}</option>)
-                        )   
-                    }
-                </select>
-
-                <label>Choose the task utility metric:</label>
-                <select class="u-full-width" id="utility" style={{width:"45%"}} key="{utilityMetric}util" value={utilityMetric} onChange={handleUtilityMetricChange}>
-                    <option value="1">Mean Squared Error</option>
-                    <option value="2">Mean Absolute Error</option>
-                    <option value="4">F-score</option>
-                    <option value="5" disabled={true}>Your own function</option>
-                </select>
-                <br></br>
-                <br></br>
-                
-
-                </div> : <p></p>
-                }
-                </div>
-                </div>
-                <div style={{clear:"both"}}></div>
-                <button type="submit" onClick={taskSubmit}>Run Task</button>
-                <div>{formData.file ?
-                Test('lightgreen','lightyellow','grey','grey'): Test('lightyellow','grey','grey','grey')}
-                </div>
             
-                
+            <p><MainTable 
+                    name={file.name}
+                    preview={dataset.data}
+                /></p>
+            <p>Task: {formData.task}</p> 
 
+            <label>Choose the folder you want to use:</label>
+                {
+                    formData.folder ? 
+                        <p>Using folder: {formData.folder}</p> 
+                        : 
+                        <input type="file" webkitdirectory="" onChange={handleFolder}></input>
+                }
+             
+             <br></br>
+
+             <button type="submit" onClick={handleSubmit}>Run Metam</button>
+                <div style={{clear:"both"}}></div>
+                <div>{
+                Test('lightgreen','lightgreen','lightyellow','grey')}
+                </div>
         </div>
     )
 }
@@ -262,16 +196,20 @@ const Form2 = ({ formData,
         </div>
         </div>
         <div style={{backgroundColor:"white"}}>
-        
+        <label>Choose the folder you want to use:</label>
+                {
+                    formData.folder ? 
+                        <p>Using folder: {formData.folder}</p> 
+                        : 
+                        <input type="file" webkitdirectory="" onChange={handleFolder}></input>
+                }
         <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
+    <button type="submit" onClick={handleSubmit}>Run Metam</button>
     </div>
     </>
 }
 
-export default Input
+export default TaskOutput
 
 //<label>Choose the Table Candidates to be considered by Metam:</label>
 //       <div className="container">
