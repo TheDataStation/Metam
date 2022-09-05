@@ -8,3 +8,6 @@
 	overflow-x: auto;
 	white-space: nowrap;
 }
+table, th, td {
+    border:1px solid black;
+  }

@@ -86,16 +86,20 @@ const openInNewTab = url => {
   window.open(url,"_self");
 };
 // render function...
-export function Apptest(color1,color2,color3,color4,color5) {
+export function Apptest(color1,color2,color3,color4) {
   return (
-    <div style={{textAlign: "center", float:"left", width: "50%", backgroundColor:"#C4DDFF", margin: "0px 25px 0px 0px"}}>
+    <div>
+    <div style={{backgroundColor:"#E6E6FA"}}>
+      <h3>GODDS: </h3>
+      <button style={{height:"70px", backgroundColor:color1, position: "absolute", left: "12%", margin:"5px 0px 0px 0px"}} type="submit" id="p1"  onClick={() => openInNewTab('/')} >Step 1: <br></br>Upload dataset </button>
+      <button style={{height:"70px", backgroundColor:color2, position: "absolute", left: "30%", margin:"5px 0px 0px 0px"}}type="submit" id="p2"  onClick={() => openInNewTab('/')}  >Specift Task</button>
+      <button style={{height:"70px",backgroundColor:color3, position: "absolute", left: "45%", margin:"5px 0px 0px 0px"}}type="submit" id="p3"  onClick={() => openInNewTab('/')}  >Specift External Data</button>
+      <button style={{ height:"70px", backgroundColor:color4, position: "absolute", left: "65%", margin:"5px 0px 0px 0px"}}type="submit" id="p4"  onClick={() => openInNewTab('/')}  >Inspect results</button>
       <br></br>
-      
-      <button style={{width:"250px",height:"70px", backgroundColor:color1, color:"black",position: "absolute", left: "2%", margin:"5px 0px 0px 0px"}} type="submit" id="p1"  onClick={() => openInNewTab('/')} >Step 1: <br></br><h6><b>Upload dataset</b></h6> </button>
-      <button style={{width:"250px", height:"70px", backgroundColor:color2, position: "absolute", left: "2%", margin:"105px 0px 0px 0px",color:"black"}}type="submit" id="p2"  onClick={() => openInNewTab('/')}  >Step 2: <br></br><h6><b>Specify Task</b></h6></button>
-      <button style={{width:"250px",height:"70px",backgroundColor:color3, position: "absolute", left: "2%", margin:"205px 0px 0px 0px",color:"black"}}type="submit" id="p3"  onClick={() => openInNewTab('/')}  >Step 3: <br></br><h6><b>Specify External Data</b></h6></button>
-      <button style={{ width:"250px",height:"70px", backgroundColor:color4, position: "absolute", left: "2%", margin:"305px 0px 0px 0px",color:"black"}}type="submit" id="p4"  onClick={() => openInNewTab('/')}  >Step 4: <br></br><h6><b>Output Summary</b></h6> </button>
-      <button style={{ width:"250px",height:"70px", backgroundColor:color5, position: "absolute", left: "2%", margin:"405px 0px 0px 0px",color:"black"}}type="submit" id="p5"  onClick={() => openInNewTab('/')}  >Step 5: <br></br><h6><b><center>Inspect GODDS execution</center></b></h6> </button>
+      <br></br>
+      <br></br>
+     <br></br>
+    </div>
     <Xarrow
           start="p1" //can be react ref
           end="p2"
@@ -112,11 +116,7 @@ export function Apptest(color1,color2,color3,color4,color5) {
           end="p4"
           path="straight" //or an id
       />
-         <Xarrow
-          start="p4" //can be react ref
-          end="p5"
-          path="straight" //or an id
-      />
+      
       
     </div>
   );

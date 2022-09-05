@@ -1,14 +1,23 @@
 .card_wrapper {
-    width: 250px;
-    height: 260px;
-    max-width: 5040px;
+    height: 300px;
+    max-width: 5000px;
     min-width: 260px;
-    margin: 1px;
+    margin: 0px;
 
+    border: none;
+    border-radius: 0px;
+    
+    display: inline-block;
+
+    overflow: scroll;
+    align-items: center;
+
+    padding: 0px;
+    font-size: 20px;
 }
 .card_wrapper:checked {
     background: rgb(117, 51, 51);
-    border: none;
+    border: 11px solid gray;
 }
 input[type="checkbox"]{
     -webkit-appearance: initial;

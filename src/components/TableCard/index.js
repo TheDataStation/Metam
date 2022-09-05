@@ -42,6 +42,7 @@ const TableCard = ({ id, name, source, relationship, score, preview }) => {
         }
         setChecked(!checked);
     };
+    const clst=[]
     return <div id={id} className="card_wrapper" onClick={handleChange}>
        <input align="left"
           type="checkbox"
@@ -56,7 +57,7 @@ const TableCard = ({ id, name, source, relationship, score, preview }) => {
             score={score}
         />
         
-        <TablePreview preview={preview} />
+        <TablePreview preview={preview} colorlst={clst} />
     </div>
 
 }
@@ -70,7 +71,7 @@ const Header = ({ name, source, relationship, score}) => {
             <span className="card_title">{ name }</span>
             
             <span className="card_header_subtitle">
-                { source }
+                { name }
             </span>
 
         </div>

@@ -3,7 +3,7 @@ import React from 'react';
 import * as go from 'gojs';
 import { ReactDiagram } from 'gojs-react';
 
-import './Apptest.css';  // contains .diagram-component CSS
+import './Architecture.css';  // contains .diagram-component CSS
 import Xarrow from "react-xarrows";
 
 // ...
@@ -86,36 +86,65 @@ const openInNewTab = url => {
   window.open(url,"_self");
 };
 // render function...
-export function Apptest(color1,color2,color3,color4,color5) {
+export function Architecture(fname) {
   return (
-    <div style={{textAlign: "center", float:"left", width: "50%", backgroundColor:"#C4DDFF", margin: "0px 25px 0px 0px"}}>
+    <div style={{textAlign: "center", float:"right", width: "40%", backgroundColor:"#C4DDFF", margin: "0px 25px 0px 0px"}}>
       <br></br>
       
-      <button style={{width:"250px",height:"70px", backgroundColor:color1, color:"black",position: "absolute", left: "2%", margin:"5px 0px 0px 0px"}} type="submit" id="p1"  onClick={() => openInNewTab('/')} >Step 1: <br></br><h6><b>Upload dataset</b></h6> </button>
-      <button style={{width:"250px", height:"70px", backgroundColor:color2, position: "absolute", left: "2%", margin:"105px 0px 0px 0px",color:"black"}}type="submit" id="p2"  onClick={() => openInNewTab('/')}  >Step 2: <br></br><h6><b>Specify Task</b></h6></button>
-      <button style={{width:"250px",height:"70px",backgroundColor:color3, position: "absolute", left: "2%", margin:"205px 0px 0px 0px",color:"black"}}type="submit" id="p3"  onClick={() => openInNewTab('/')}  >Step 3: <br></br><h6><b>Specify External Data</b></h6></button>
-      <button style={{ width:"250px",height:"70px", backgroundColor:color4, position: "absolute", left: "2%", margin:"305px 0px 0px 0px",color:"black"}}type="submit" id="p4"  onClick={() => openInNewTab('/')}  >Step 4: <br></br><h6><b>Output Summary</b></h6> </button>
-      <button style={{ width:"250px",height:"70px", backgroundColor:color5, position: "absolute", left: "2%", margin:"405px 0px 0px 0px",color:"black"}}type="submit" id="p5"  onClick={() => openInNewTab('/')}  >Step 5: <br></br><h6><b><center>Inspect GODDS execution</center></b></h6> </button>
+      <button style={{boxShadow: "2px 2px 2px 1px #808080", border: "1px solid black", backgroundColor:"#e7e7e7",color:"black", width:"250px",height:"40px",  color:"black",position: "absolute", right: "10%", margin:"5px 0px 0px 0px"}} type="submit" id="index"  onClick={() => openInNewTab('/')} ><h6><b>Index</b></h6> </button>
+      <button style={{width:"250px",height:"40px",  backgroundColor:"white",color:"black", color:"black",position: "absolute", right: "30%", margin:"5px 0px 0px 0px"}} type="submit" id="base"  onClick={() => openInNewTab('/')} ><h6><b>{fname}</b></h6> </button>
+      <button style={{width:"250px", height:"40px", boxShadow: "2px 2px 2px 1px #808080", border: "1px solid black", backgroundColor:"#e7e7e7",color:"black", position: "absolute", right: "20%", margin:"105px 0px 0px 0px",color:"black"}}type="submit" id="candidate"  onClick={() => openInNewTab('/')}  ><h6><b>Candidate Generation</b></h6></button>
+      <button style={{width:"250px",height:"40px",boxShadow: "2px 2px 2px 1px #808080", border: "1px solid black", backgroundColor:"#e7e7e7",color:"black", position: "absolute", right: "20%", margin:"205px 0px 0px 0px",color:"black"}}type="submit" id="profiling"  onClick={() => openInNewTab('/')}  ><h6><b>Data Profiling</b></h6></button>
+      <button style={{ width:"250px",height:"40px",boxShadow: "2px 2px 2px 1px #808080", border: "1px solid black", backgroundColor:"#e7e7e7",color:"black", position: "absolute", right: "20%", margin:"305px 0px 0px 0px",color:"black"}}type="submit" id="clusters"  onClick={() => openInNewTab('/')}  ><h6><b>Clustering</b></h6> </button>
+      <button style={{ width:"250px",height:"40px", boxShadow: "2px 2px 2px 1px #808080", border: "1px solid black", backgroundColor:"#e7e7e7",color:"black", position: "absolute", right: "10%", margin:"405px 0px 0px 0px",color:"black"}}type="submit" id="quality"  onClick={() => openInNewTab('/')}  ><h6><b><center>Quality score estimation</center></b></h6> </button>
+      <button style={{ width:"250px",height:"40px", boxShadow: "2px 2px 2px 1px #808080", border: "1px solid black", backgroundColor:"#e7e7e7",color:"black", position: "absolute", right: "30%", margin:"405px 0px 0px 0px",color:"black"}}type="submit" id="group"  onClick={() => openInNewTab('/')}  ><h6><b><center>Group selection</center></b></h6> </button>
+      <button style={{ width:"250px",height:"40px", boxShadow: "2px 2px 2px 1px #808080", border: "1px solid black", backgroundColor:"#e7e7e7",color:"black", position: "absolute", right: "20%", margin:"505px 0px 0px 0px",color:"black"}}type="submit" id="query"  onClick={() => openInNewTab('/')}  ><h6><b><center>Query selection</center></b></h6> </button>
     <Xarrow
-          start="p1" //can be react ref
-          end="p2"
+          start="index" //can be react ref
+          end="candidate"
           path="straight" //or an id
+          color="black"
       />
       <Xarrow
-          start="p2" //can be react ref
-          end="p3"
+          start="base" //can be react ref
+          end="candidate"
           path="straight" //or an id
+          color="black"
       />
       
       <Xarrow
-          start="p3" //can be react ref
-          end="p4"
+          start="candidate" //can be react ref
+          end="profiling"
           path="straight" //or an id
+          color="black"
       />
          <Xarrow
-          start="p4" //can be react ref
-          end="p5"
+          start="profiling" //can be react ref
+          end="clusters"
           path="straight" //or an id
+          color="black"
+      />
+      <Xarrow
+          start="clusters" //can be react ref
+          end="quality"
+          color="black"
+      />
+      <Xarrow
+          start="clusters" //can be react ref
+          end="group"
+          color="black"
+      />
+      <Xarrow
+          start="quality" //can be react ref
+          end="query"
+          path="straight" //or an id
+          color="black"
+      />
+      <Xarrow
+          start="group" //can be react ref
+          end="query"
+          path="straight" //or an id
+          color="black"
       />
       
     </div>
