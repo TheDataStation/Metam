@@ -17,10 +17,10 @@ The profiling component processes the candidate set of augmentations to generate
 ## Clustering
 This component processes the candidate augmentations to generate clusters where profiles are used to calculate similarity between augmentations.
 
-## Sequential Qeurying
+## Sequential Querying
 This component chooses representative augmentations and estimates a quality score to rank them. This ranking of augmentations is used to choose the next query.
 
-## Group Qeurying
+## Group Querying
 This component samples multiple augmentations to query. The sampled set is chosen using Thompson sampling over the set of clusters.
 
 
