@@ -24,9 +24,9 @@ This component chooses representative augmentations and estimates a quality scor
 This component samples multiple augmentations to query. The sampled set is chosen using Thompson sampling over the set of clusters.
 
 
-##Setup
+## Setup
 
-Run [https://github.com/mitdbg/aurum-datadiscovery](Aurum) to generate an index containing all joinable datasets
+Run [https://github.com/mitdbg/aurum-datadiscovery](Aurum) to generate an index containing all joinable datasets. 
 
 
 ```shell
@@ -57,6 +57,7 @@ path = ''  # path to all datasets
 query_data = ''  # name of source table (Initial dataset)
 class_attr = '' #column name of prediction attribute
 
+filepath = '' #File containing all join paths identified by Aurum
 
 #Below parameters are set to default values and you can change to simulate variations
 epsilon = 0.05 # Metam parameter
