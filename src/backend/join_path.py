@@ -1,3 +1,4 @@
+import pandas as pd
 from join_column import JoinColumn
 import random
 class JoinPath:
@@ -118,3 +119,38 @@ def cluster_join_paths(joinable_lst,k,epsilon):
             break
         i+=1
     return (centers,assignment,get_clusters(assignment,k))
+
+
+def get_join_paths_from_file(querydata,filepath):
+    df=pd.read_csv(filepath)
+
+    subdf=df[df['tbl1']==querydata]
+    subdf2=df[df['tbl2']==querydata]
+
+    options=[]
+
+    for index,row in subdf.iterrows():
+        jk1=JoinKey('','',0,0)
+        jk2=JoinKey('','',0,0)
+        jk1.tbl=row['tbl1']
+        jk1.col=row['col1']
+
+        jk2.tbl=row['tbl2']
+        jk2.col=row['col2']
+        ret_jp = JoinPath([jk1,jk2])
+        options.append(ret_jp)
+
+
+    for index,row in subdf2.iterrows():
+        jk1=JoinKey('','',0,0)
+        jk2=JoinKey('','',0,0)
+        jk1.tbl=row['tbl1']
+        jk1.col=row['col1']
+
+        jk2.tbl=row['tbl2']
+        jk2.col=row['col2']
+        ret_jp = JoinPath([jk2,jk1])
+        options.append(ret_jp)
+
+
+    return options
