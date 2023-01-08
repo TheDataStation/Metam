@@ -4,10 +4,14 @@ Metam is a goal-oriented data discovery system that takes a dataset as input and
 Metam is divided into the following components: Candidate generation and profiling, Clustering, Sequential querying, and group querying.
 
 
-##Candidate Generation
-The implementation allows the user to specify a list of candidates as a csv file. 
+## Candidate Generation
+The implementation allows the user to specify a list of candidates as a csv file. The current implementation has been tested with [https://github.com/mitdbg/aurum-datadiscovery](Aurum). Aurum indexes all datasets in a repository and generates a set of join paths for all datasets in the repository.
 
+## Profiling
+The profiling component processes the candidate set of augmentations to generate data profiles like number of null values, correlation between columns, etc.
 
+## Clustering
+This component processes the 
 
 ## To run the demo, you should run:
 
