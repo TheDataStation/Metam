@@ -6,7 +6,7 @@ Metam is divided into the following components: Candidate generation and profili
 
 ## Metam Architecture
 
-<img src="docs/architecture.png" width="500">
+<img src="docs/architecture.png" width="700">
 
 ## Candidate Generation
 The implementation allows the user to specify a list of candidates as a csv file. The current implementation has been tested with [https://github.com/mitdbg/aurum-datadiscovery](Aurum). Aurum indexes all datasets in a repository and generates a set of join paths for all datasets in the repository.
@@ -15,7 +15,55 @@ The implementation allows the user to specify a list of candidates as a csv file
 The profiling component processes the candidate set of augmentations to generate data profiles like number of null values, correlation between columns, etc.
 
 ## Clustering
-This component processes the 
+This component processes the candidate augmentations to generate clusters where profiles are used to calculate similarity between augmentations.
+
+## Sequential Qeurying
+This component chooses representative augmentations and estimates a quality score to rank them. This ranking of augmentations is used to choose the next query.
+
+## Group Qeurying
+This component samples multiple augmentations to query. The sampled set is chosen using Thompson sampling over the set of clusters.
+
+
+##Setup
+
+Run [https://github.com/mitdbg/aurum-datadiscovery](Aurum) to generate an index containing all joinable datasets
+
+
+```shell
+# create virtual environment
+$ pip install virtualenv
+$ virtualenv --no-site-packages venv
+$ source venv/bin/activate 
+$ pip3 install --no-deps -r requirements.txt
+```
+
+Add this project to python path
+
+```shell
+$ export PYTHONPATH="${PYTHONPATH}:/path/to/Metam"
+```
+
+
+## Run Example
+
+Once you have the aurum index, you can try running the end-to-end pipeline in
+`examples/example.py`
+
+Before you run, there are several parameters you need to set in the example
+file:
+
+```python
+path = ''  # path to all datasets
+query_data = ''  # name of source table (Initial dataset)
+class_attr = '' #column name of prediction attribute
+
+
+#Below parameters are set to default values and you can change to simulate variations
+epsilon = 0.05 # Metam parameter
+theta = 0.90 # Required utility
+ninfo=0 # Number of uninformative profiles to be added on top of default set of profiles
+```
+
 
 ## To run the demo, you should run:
 
