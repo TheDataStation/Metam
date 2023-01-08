@@ -6,7 +6,7 @@ Metam is divided into the following components: Candidate generation and profili
 
 ## Metam Architecture
 
-<img src="docs/metam_architecture.pdf" width="500">
+<img src="docs/architecture.png" width="500">
 
 ## Candidate Generation
 The implementation allows the user to specify a list of candidates as a csv file. The current implementation has been tested with [https://github.com/mitdbg/aurum-datadiscovery](Aurum). Aurum indexes all datasets in a repository and generates a set of join paths for all datasets in the repository.
