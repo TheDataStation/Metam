@@ -40,7 +40,7 @@ class Oracle:
 
 		X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=1)
 		fscore=0
-		seed_lst=[0]#,1,2,3,4,5]
+		seed_lst=[2]
 		for seed in seed_lst:
 			
 
