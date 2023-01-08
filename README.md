@@ -1,10 +1,15 @@
-# Metam
+# Metam : Goal-oriented Data Disovery
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Metam is a goal-oriented data discovery system that takes a dataset as input and identifies augmentations that optimize a downstream task.
+Metam is divided into the following components: Candidate generation and profiling, Clustering, Sequential querying, and group querying.
 
-## Available Scripts
 
-In the project directory, you can run:
+##Candidate Generation
+The implementation allows the user to specify a list of candidates as a csv file. 
+
+
+
+## To run the demo, you should run:
 
 ### `yarn start`
 
