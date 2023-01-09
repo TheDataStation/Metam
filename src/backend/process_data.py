@@ -1,3 +1,12 @@
+'''
+This file can be used to run for schools data with classification task.
+
+For other tasks, please change line 19 to import respective Oracle, e.g. regression_oracle for Figure 3b
+causal_oracle for Figure 3c.
+
+'''
+
+
 from distutils.ccompiler import new_compiler
 import profile_weights
 import os,copy
@@ -30,9 +39,9 @@ epsilon=0.05
 
 theta = 0.90
 tau = len(centers)
-
-
 filepath='/home/cc/network_opendata_06.csv'
+
+
 
 
 def get_size_dic(path):
