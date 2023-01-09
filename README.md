@@ -69,7 +69,14 @@ ninfo=0 # Number of uninformative profiles to be added on top of default set of 
 
 ## To inspect the manually investigated join paths, please download the data from [https://drive.google.com/drive/u/1/folders/1fX2RhFtugiaHwbRF72zW7W9hS89AHHAA]
 
+## For reproducibility, 
+Step 1: Please download data from this link 
+[https://drive.google.com/drive/u/1/folders/1fX2RhFtugiaHwbRF72zW7W9hS89AHHAA]
 
+Step 2: Generate Aurum indexes for this data
+
+Step 3: Follow the above mentioned steps to setup the repo and run. 
+Default parameters are set in src/backend/process_data.py
 
 
 ## To run the demo, you should run:
