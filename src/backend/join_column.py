@@ -18,7 +18,7 @@ class JoinColumn:
         self.orig_name=column
         self.base_copy=copy.deepcopy(base_df)
         self.df=df.drop_duplicates(subset=self.join_path.join_path[1].col, keep="first")
-        self.profiles={'sim':self.syntactic}#,'corr':self.corr}#, 'mutual':self.syntactic}
+        self.profiles={'sim':self.syntactic,'corr':self.corr, 'mutual':self.syntactic}
         self.class_attr=class_attr
 
         self.key_r=self.join_path.join_path[1].col
@@ -149,7 +149,6 @@ class JoinColumn:
             print (cross_tab)
             print(chi2,p)
             print (self.merged_df[[col,self.column]][:10])
-            fasd
             return chi2
         else:
             return 0
