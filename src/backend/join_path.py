@@ -1,6 +1,63 @@
 import pandas as pd
 from join_column import JoinColumn
 import random
+def get_column_lst(joinable_lst):
+    i=0
+    skip_count=0
+    new_col_lst=[]
+    while i<len(joinable_lst):
+        print (i,len(new_col_lst))
+        jp=joinable_lst[i]
+        print (jp.join_path[0].tbl,jp.join_path[0].col,jp.join_path[1].tbl,jp.join_path[1].col)
+        if jp.join_path[1].tbl in ignore_lst or jp.join_path[0].tbl in ignore_lst:
+            i+=1
+            continue
+        if jp.join_path[1].tbl=='s27g-2w3u.csv'or jp.join_path[0].tbl=='s27g-2w3u.csv':
+            skip_count+=1
+            i+=1
+            continue
+        if jp.join_path[0].tbl in size_dic.keys() and jp.join_path[1].tbl in size_dic.keys():
+            if size_dic[jp.join_path[0].tbl]>1000000 or size_dic[jp.join_path[1].tbl]>1000000:
+                skip_count+=1
+                i+=1
+                continue
+
+
+        if jp.join_path[0].tbl not in data_dic.keys():
+            df_l=pd.read_csv(path+"/"+jp.join_path[0].tbl,low_memory=False)
+            data_dic[jp.join_path[0].tbl]=df_l
+            print ("dataset size is ",df_l.shape)
+        else:
+            df_l=data_dic[jp.join_path[0].tbl]
+        if jp.join_path[1].tbl not in data_dic.keys():
+            df_r=pd.read_csv(path+"/"+jp.join_path[1].tbl,low_memory=False)
+            data_dic[jp.join_path[1].tbl]=df_r
+            print ("dataset size is ",df_r.shape)
+        else:
+            df_r=data_dic[jp.join_path[1].tbl]
+        collst=list(df_r.columns)
+        if jp.join_path[1].col not in df_r.columns or jp.join_path[0].col not in df_l.columns:
+            i+=1
+            continue
+        if df_r.dtypes[jp.join_path[1].col] == 'float64' or df_r.dtypes[jp.join_path[1].col] == 'int64':
+            skip_count+=1
+            i+=1
+            continue
+        for col in collst:
+            if jp.join_path[1].tbl=='2013_NYC_School_Survey.csv' or jp.join_path[1].tbl =='5a8g-vpdd.csv':
+                continue
+            if col==jp.join_path[1].col or jp.join_path[0].col =='class' or col=='class':
+                continue
+            jc=JoinColumn(jp,df_r,col,base_df,class_attr,len(new_col_lst),uninfo)
+            new_col_lst.append(jc)
+            if jc.column=='School Type' and jp.join_path[1].tbl=='bnea-fu3k.csv':#2012-2013 ENVIRONMENT GRADE':# and jp.join_path[1].tbl=='test1.csv':
+                f1=open('log.txt','a')
+                f1.write(str(len(new_col_lst)-1)+" "+jc.column+" "+jc.join_path.join_path[1].tbl+" "+jc.join_path.join_path[1].col+"\n")
+                print(col,jc.merged_df,len(new_col_lst)-1,"test1")
+                f1.close()
+        i+=1
+    return (new_col_lst,skip_count)
+
 class JoinPath:
     def __init__(self, join_key_list):
         self.join_path = join_key_list
